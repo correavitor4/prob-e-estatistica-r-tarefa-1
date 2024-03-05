@@ -109,3 +109,16 @@ ggplot(
   xlab("Quantidade de filhos")+
   ylab("Alunos que possuem essa quantidade de filhos")+
   theme(plot.title = element_text(hjust = 0.5))
+
+
+
+#Tabela fumantes e gráfico fumantes
+fumantes_table = table(data$Fuma)
+fumantes_data_frame = data.frame(
+  "Fuma" = names(fumantes_table),
+  "Porcentagem" = as.vector(fumantes_table))
+
+pie(
+  fumantes_table,
+  labels = paste(names(fumantes_table), ": ", fumantes_table),
+  main = "Fumantes")
