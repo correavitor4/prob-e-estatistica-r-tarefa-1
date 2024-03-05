@@ -51,6 +51,6 @@ ggplot(
     y = Frequencia
   )
 )+ 
-  geom_bar(stat = "identity", fill = "orange") +
+  geom_bar(stat = "identity") +
   labs(title = "Frequências das idades dos alunos") +
   theme(plot.title = element_text(hjust = 0.5))
