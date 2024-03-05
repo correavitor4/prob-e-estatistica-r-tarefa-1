@@ -94,5 +94,7 @@ filhos_factor_levels = min(filhos): max(filhos)
 filhos_factor = factor(data$Filhos, levels = filhos_factor_levels)
 filhos_table = table(filhos_factor)
 filhos_data_frame = data.frame(
-  "Número de Filhos" = names(filhos_table),
-  "Frequência" = as.vector(filhos_table))
+  "NumeroDeFilhos" = names(filhos_table),
+  "Frequencia" = as.vector(filhos_table))
+
+res = is.na(filhos_data_frame)
