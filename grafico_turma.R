@@ -86,3 +86,13 @@ ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
   xlab("Intervalo de peso")+
   ylab("Número de alunos")+
   theme(plot.title = element_text(hjust = 0.5))
+
+
+#Tabela de numero de filhos e gráfico de número de filhos
+filhos = data$Filhos
+filhos_factor_levels = min(filhos): max(filhos)
+filhos_factor = factor(data$Filhos, levels = filhos_factor_levels)
+filhos_table = table(filhos_factor)
+filhos_data_frame = data.frame(
+  "Número de Filhos" = names(filhos_table),
+  "Frequência" = as.vector(filhos_table))
