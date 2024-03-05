@@ -37,14 +37,13 @@ pie(
 )
 
 
-
 #Tabela de idade e gráfico de idade
 contagem_idade = table(data$Idade)
 contagem_idade_table = data.frame(
   Idade = names (contagem_idade),
-  # Frequencia = as.integer(contagem_idade)
+  Frequencia = as.integer(contagem_idade)
 )
-ggplot(
+idade_grafico = ggplot(
   contagem_idade_table,
   aes(
     x = Idade, 
@@ -54,3 +53,22 @@ ggplot(
   geom_bar(stat = "identity") +
   labs(title = "Frequências das idades dos alunos") +
   theme(plot.title = element_text(hjust = 0.5))
+print(idade_grafico)
+
+
+#Tabela de altura e gráfico de altura
+altura = data$Alt
+n_classes = 5
+amplitude_de_classe = (max(altura) - min (altura))/n_classes
+intervalos = seq(min(altura), max(altura), amplitude_de_classe)
+classes = cut(altura, breaks = intervalos, include.lowest = TRUE)
+tabela_classes = as.data.frame(table(classes))
+plot_altura = ggplot(data = tabela_classes, aes(x = classes, y = Freq)) + 
+  geom_bar(stat = "identity")+
+  labs(title = "Ocorrência de alunos por estatura")+
+  xlab("Intervalo de estatura")+
+  ylab("Número de ocorrências")+
+  theme(plot.title = element_text(hjust = 0.5))
+print(plot_altura)
+
+
