@@ -58,7 +58,7 @@ print(idade_grafico)
 
 #Tabela de altura e gráfico de altura
 altura = data$Alt
-n_classes = 5
+n_classes = ceiling(log(length(altura), 2))
 amplitude_de_classe = (max(altura) - min (altura))/n_classes
 intervalos = seq(min(altura), max(altura), amplitude_de_classe)
 classes = cut(altura, breaks = intervalos, include.lowest = TRUE)
@@ -72,3 +72,17 @@ plot_altura = ggplot(data = tabela_classes, aes(x = classes, y = Freq)) +
 print(plot_altura)
 
 
+#Tabela de peso e gráfico de peso
+peso = data$Peso
+n_classes_peso = ceiling(sqrt(length(peso)))
+amplitude_de_classe_peso = ceiling((max(peso) - min(peso)) / n_classes_peso)
+intervalos_peso = seq(min(peso), max(peso) + amplitude_de_classe_peso, amplitude_de_classe_peso)
+classes_peso = cut(peso, breaks = intervalos_peso, include.lowest = TRUE)
+tabela_classes_peso = table(classes_peso)
+classes_peso_data_frame = as.data.frame(tabela_classes_peso)
+ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
+  geom_bar(stat = "identity")+
+  labs(title = "Distruição de alunos por faixa de peso")+
+  xlab("Intervalo de peso")+
+  ylab("Número de alunos")+
+  theme(plot.title = element_text(hjust = 0.5))
