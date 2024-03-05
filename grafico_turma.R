@@ -42,7 +42,7 @@ pie(
 contagem_idade = table(data$Idade)
 contagem_idade_table = data.frame(
   Idade = names (contagem_idade),
-  Frequencia = as.integer(contagem_idade)
+  # Frequencia = as.integer(contagem_idade)
 )
 ggplot(
   contagem_idade_table,
