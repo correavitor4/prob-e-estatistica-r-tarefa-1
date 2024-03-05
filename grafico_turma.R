@@ -97,4 +97,15 @@ filhos_data_frame = data.frame(
   "NumeroDeFilhos" = names(filhos_table),
   "Frequencia" = as.vector(filhos_table))
 
-res = is.na(filhos_data_frame)
+ggplot(
+  filhos_data_frame,
+  aes(
+    x= filhos_data_frame$NumeroDeFilhos,
+    y= filhos_data_frame$Frequencia
+  )
+)+
+  geom_bar(stat = "identity")+
+  labs(title = "Frequência de alunos por quantidade de filhos")+
+  xlab("Quantidade de filhos")+
+  ylab("Alunos que possuem essa quantidade de filhos")+
+  theme(plot.title = element_text(hjust = 0.5))
