@@ -137,3 +137,22 @@ pie(
 
 
 
+#Tabela exerc e gráfico exerc
+exerc_table = table(data$Exerc)
+exerc_data_frame = data.frame(exerc_table)
+colnames(exerc_data_frame) = c("Horas de atividade física semanal", "Frequência")
+exerc_plot = ggplot(
+  exerc_data_frame,
+  aes(
+    x = `Horas de atividade física semanal`,
+    y = Frequência
+  )
+)+ geom_bar(
+  stat = "identity"
+  )+
+  xlab("Horas de atividade física semanal")+
+  ylab("Contagem dos alunos")+
+  labs(title = "Contagem de alunos por tempo de atividade física semanal (em horas)")
+print(exerc_plot)
+
+
