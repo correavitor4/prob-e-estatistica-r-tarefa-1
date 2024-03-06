@@ -128,8 +128,12 @@ pie(
 #Tabela toler e gráfico Toler
 toler_table = data.frame(table(data$Toler))
 colnames(toler_table) = c("Toler", "Frequencia")
+toler_names_description = c("Indiferente", "Incomoda Muito", "Incomoda Pouco")
 pie(
   table(data$Toler),
-  main = "Toler",
-  labels = paste(names(table(data$Toler)), ": ", table(data$Toler))
+  main = "Tolerância ao cigarro",
+  labels = paste(toler_names_description, ": ", table(data$Toler))
 )
+
+
+
