@@ -156,3 +156,32 @@ exerc_plot = ggplot(
 print(exerc_plot)
 
 
+
+#Tabela cine e gráfico cine
+cine_table = table(data$Cine)
+cine_data_frame = data.frame(cine_table)
+colnames(cine_data_frame) = c("Número idas ao cinema por semana", "Número de alunos")
+ggplot(
+  cine_data_frame,
+  aes(
+    x = `Número idas ao cinema por semana`,
+    y = `Número de alunos`
+  )
+)+
+  geom_bar(
+    stat = "identity"
+  )+
+  labs(title = "Contagem de alunos por número de idas semanais ao cinema")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+#Tabela opcine e gráfico opcine
+opcine_table = table(data$OpCine)
+opcine_data_frame = data.frame(opcine_table)
+colnames(opcine_data_frame) = c("Opinião", "Contagem de alunos")
+levels(opcine_data_frame$Opinião) = c("Regular e Boa", "Muito Boa")
+pie(
+  opcine_data_frame$`Contagem de alunos`,
+  main = "Opinião a respeito das salas de cinema na cidade",
+  labels = paste(opcine_data_frame$`Opinião`, ":", opcine_data_frame$`Contagem de alunos`)
+)
