@@ -161,7 +161,7 @@ print(exerc_plot)
 cine_table = table(data$Cine)
 cine_data_frame = data.frame(cine_table)
 colnames(cine_data_frame) = c("Número idas ao cinema por semana", "Número de alunos")
-ggplot(
+cine_plot = ggplot(
   cine_data_frame,
   aes(
     x = `Número idas ao cinema por semana`,
@@ -173,7 +173,7 @@ ggplot(
   )+
   labs(title = "Contagem de alunos por número de idas semanais ao cinema")+
   theme(plot.title = element_text(hjust = 0.5))
-
+print(cine_plot)
 
 #Tabela opcine e gráfico opcine
 opcine_table = table(data$OpCine)
@@ -189,7 +189,7 @@ pie(
 
 
 #Tabela TV e plot
-n_classes_tv = ceiling(sqrt(length(tv_table)))
+n_classes_tv = ceiling(sqrt(length(data$TV)))
 amplitude_classe_tv = ceiling((max(data$TV) - min(data$TV))/n_classes_tv)
 intervalo_tv = seq(min(data$TV), max(data$TV), amplitude_classe_tv)
 classes_tv = cut(data$TV, intervalo_tv, include.lowest = TRUE)
@@ -201,3 +201,14 @@ tv_plot = ggplot(tv_data_frame, aes(x = `Intervalos de horas assistidas de TV se
   labs(title = "Contagem de alunos por horas de TV assistidas semanalmente")+
   theme(plot.title = element_text(hjust = 0.5))
 print(tv_plot)
+
+
+
+#Tabela OpTv e plot
+op_tv_data_frame = data.frame(table(data$OpTV))
+levels(op_tv_data_frame$Var1) = c("Boa", "Média", "Não Sabe", "Ruim")
+colnames(op_tv_data_frame) = c("Opinião", "Número de alunos")
+pie(
+  op_tv_data_frame$`Número de alunos`,
+  labels = paste(op_tv_data_frame$`Opinião`, ": ", op_tv_data_frame$`Número de alunos`)
+)
