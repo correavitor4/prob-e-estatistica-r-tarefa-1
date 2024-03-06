@@ -185,3 +185,19 @@ pie(
   main = "Opinião a respeito das salas de cinema na cidade",
   labels = paste(opcine_data_frame$`Opinião`, ":", opcine_data_frame$`Contagem de alunos`)
 )
+
+
+
+#Tabela TV e plot
+n_classes_tv = ceiling(sqrt(length(tv_table)))
+amplitude_classe_tv = ceiling((max(data$TV) - min(data$TV))/n_classes_tv)
+intervalo_tv = seq(min(data$TV), max(data$TV), amplitude_classe_tv)
+classes_tv = cut(data$TV, intervalo_tv, include.lowest = TRUE)
+tv_data_frame = as.data.frame(table(classes_tv))
+colnames(tv_data_frame) = c("Intervalos de horas assistidas de TV semanais", "Número de alunos")
+tv_plot = ggplot(tv_data_frame, aes(x = `Intervalos de horas assistidas de TV semanais`, y = `Número de alunos`)) +
+  geom_col() +
+  labs(x = "Intervalos de horas assistidas de TV semanais", y = "Número de alunos")+
+  labs(title = "Contagem de alunos por horas de TV assistidas semanalmente")+
+  theme(plot.title = element_text(hjust = 0.5))
+print(tv_plot)
