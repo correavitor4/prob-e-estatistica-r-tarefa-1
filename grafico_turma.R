@@ -122,3 +122,14 @@ pie(
   fumantes_table,
   labels = paste(names(fumantes_table), ": ", fumantes_table),
   main = "Fumantes")
+
+
+
+#Tabela toler e gráfico Toler
+toler_table = data.frame(table(data$Toler))
+colnames(toler_table) = c("Toler", "Frequencia")
+pie(
+  table(data$Toler),
+  main = "Toler",
+  labels = paste(names(table(data$Toler)), ": ", table(data$Toler))
+)
