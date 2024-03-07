@@ -80,13 +80,13 @@ intervalos_peso = seq(min(peso), max(peso) + amplitude_de_classe_peso, amplitude
 classes_peso = cut(peso, breaks = intervalos_peso, include.lowest = TRUE)
 tabela_classes_peso = table(classes_peso)
 classes_peso_data_frame = as.data.frame(tabela_classes_peso)
-ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
+peso_plot = ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
   geom_bar(stat = "identity")+
   labs(title = "Distruição de alunos por faixa de peso")+
   xlab("Intervalo de peso")+
   ylab("Número de alunos")+
   theme(plot.title = element_text(hjust = 0.5))
-
+print(peso_plot)
 
 #Tabela de numero de filhos e gráfico de número de filhos
 filhos = data$Filhos
@@ -94,5 +94,122 @@ filhos_factor_levels = min(filhos): max(filhos)
 filhos_factor = factor(data$Filhos, levels = filhos_factor_levels)
 filhos_table = table(filhos_factor)
 filhos_data_frame = data.frame(
-  "Número de Filhos" = names(filhos_table),
-  "Frequência" = as.vector(filhos_table))
+  "NumeroDeFilhos" = names(filhos_table),
+  "Frequencia" = as.vector(filhos_table))
+
+filhos_plot = ggplot(
+  filhos_data_frame,
+  aes(
+    x= NumeroDeFilhos,
+    y= Frequencia
+  )
+)+
+  geom_bar(stat = "identity")+
+  labs(title = "Frequência de alunos por quantidade de filhos")+
+  xlab("Quantidade de filhos")+
+  ylab("Alunos que possuem essa quantidade de filhos")+
+  theme(plot.title = element_text(hjust = 0.5))
+print(filhos_plot)
+
+
+#Tabela fumantes e gráfico fumantes
+fumantes_table = table(data$Fuma)
+fumantes_data_frame = data.frame(
+  "Fuma" = names(fumantes_table),
+  "Porcentagem" = as.vector(fumantes_table))
+
+pie(
+  fumantes_table,
+  labels = paste(names(fumantes_table), ": ", fumantes_table),
+  main = "Fumantes")
+
+
+
+#Tabela toler e gráfico Toler
+toler_table = data.frame(table(data$Toler))
+colnames(toler_table) = c("Toler", "Frequencia")
+toler_names_description = c("Indiferente", "Incomoda Muito", "Incomoda Pouco")
+pie(
+  table(data$Toler),
+  main = "Tolerância ao cigarro",
+  labels = paste(toler_names_description, ": ", table(data$Toler))
+)
+
+
+
+#Tabela exerc e gráfico exerc
+exerc_table = table(data$Exerc)
+exerc_data_frame = data.frame(exerc_table)
+colnames(exerc_data_frame) = c("Horas de atividade física semanal", "Frequência")
+exerc_plot = ggplot(
+  exerc_data_frame,
+  aes(
+    x = `Horas de atividade física semanal`,
+    y = Frequência
+  )
+)+ geom_bar(
+  stat = "identity"
+  )+
+  xlab("Horas de atividade física semanal")+
+  ylab("Contagem dos alunos")+
+  labs(title = "Contagem de alunos por tempo de atividade física semanal (em horas)")
+print(exerc_plot)
+
+
+
+#Tabela cine e gráfico cine
+cine_table = table(data$Cine)
+cine_data_frame = data.frame(cine_table)
+colnames(cine_data_frame) = c("Número idas ao cinema por semana", "Número de alunos")
+cine_plot = ggplot(
+  cine_data_frame,
+  aes(
+    x = `Número idas ao cinema por semana`,
+    y = `Número de alunos`
+  )
+)+
+  geom_bar(
+    stat = "identity"
+  )+
+  labs(title = "Contagem de alunos por número de idas semanais ao cinema")+
+  theme(plot.title = element_text(hjust = 0.5))
+print(cine_plot)
+
+#Tabela opcine e gráfico opcine
+opcine_table = table(data$OpCine)
+opcine_data_frame = data.frame(opcine_table)
+colnames(opcine_data_frame) = c("Opinião", "Contagem de alunos")
+levels(opcine_data_frame$Opinião) = c("Regular e Boa", "Muito Boa")
+pie(
+  opcine_data_frame$`Contagem de alunos`,
+  main = "Opinião a respeito das salas de cinema na cidade",
+  labels = paste(opcine_data_frame$`Opinião`, ":", opcine_data_frame$`Contagem de alunos`)
+)
+
+
+
+#Tabela TV e plot
+n_classes_tv = ceiling(sqrt(length(data$TV)))
+amplitude_classe_tv = ceiling((max(data$TV) - min(data$TV))/n_classes_tv)
+intervalo_tv = seq(min(data$TV), max(data$TV), amplitude_classe_tv)
+classes_tv = cut(data$TV, intervalo_tv, include.lowest = TRUE)
+tv_data_frame = as.data.frame(table(classes_tv))
+colnames(tv_data_frame) = c("Intervalos de horas assistidas de TV semanais", "Número de alunos")
+tv_plot = ggplot(tv_data_frame, aes(x = `Intervalos de horas assistidas de TV semanais`, y = `Número de alunos`)) +
+  geom_col() +
+  labs(x = "Intervalos de horas assistidas de TV semanais", y = "Número de alunos")+
+  labs(title = "Contagem de alunos por horas de TV assistidas semanalmente")+
+  theme(plot.title = element_text(hjust = 0.5))
+print(tv_plot)
+
+
+
+#Tabela OpTv e plot
+op_tv_data_frame = data.frame(table(data$OpTV))
+levels(op_tv_data_frame$Var1) = c("Boa", "Média", "Não Sabe", "Ruim")
+colnames(op_tv_data_frame) = c("Opinião", "Número de alunos")
+pie(
+  op_tv_data_frame$`Número de alunos`,
+  labels = paste(op_tv_data_frame$`Opinião`, ": ", op_tv_data_frame$`Número de alunos`),
+  main = "Opinião dos alunos a respeito da qualidade da programação de TV"
+)
