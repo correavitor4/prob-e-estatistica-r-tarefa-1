@@ -43,5 +43,6 @@ alt_idade_plot = ggplot(
     x = idade
   )
 )+
-  geom_point()
+  geom_point()+
+  labs(title = "Gráfico de dispersão entre altura e idade")
 print(alt_idade_plot)

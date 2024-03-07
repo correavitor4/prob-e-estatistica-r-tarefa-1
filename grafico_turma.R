@@ -80,13 +80,13 @@ intervalos_peso = seq(min(peso), max(peso) + amplitude_de_classe_peso, amplitude
 classes_peso = cut(peso, breaks = intervalos_peso, include.lowest = TRUE)
 tabela_classes_peso = table(classes_peso)
 classes_peso_data_frame = as.data.frame(tabela_classes_peso)
-ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
+peso_plot = ggplot(classes_peso_data_frame, aes(classes_peso, Freq)) +
   geom_bar(stat = "identity")+
   labs(title = "Distruição de alunos por faixa de peso")+
   xlab("Intervalo de peso")+
   ylab("Número de alunos")+
   theme(plot.title = element_text(hjust = 0.5))
-
+print(peso_plot)
 
 #Tabela de numero de filhos e gráfico de número de filhos
 filhos = data$Filhos
@@ -97,11 +97,11 @@ filhos_data_frame = data.frame(
   "NumeroDeFilhos" = names(filhos_table),
   "Frequencia" = as.vector(filhos_table))
 
-ggplot(
+filhos_plot = ggplot(
   filhos_data_frame,
   aes(
-    x= filhos_data_frame$NumeroDeFilhos,
-    y= filhos_data_frame$Frequencia
+    x= NumeroDeFilhos,
+    y= Frequencia
   )
 )+
   geom_bar(stat = "identity")+
@@ -109,7 +109,7 @@ ggplot(
   xlab("Quantidade de filhos")+
   ylab("Alunos que possuem essa quantidade de filhos")+
   theme(plot.title = element_text(hjust = 0.5))
-
+print(filhos_plot)
 
 
 #Tabela fumantes e gráfico fumantes
@@ -210,5 +210,6 @@ levels(op_tv_data_frame$Var1) = c("Boa", "Média", "Não Sabe", "Ruim")
 colnames(op_tv_data_frame) = c("Opinião", "Número de alunos")
 pie(
   op_tv_data_frame$`Número de alunos`,
-  labels = paste(op_tv_data_frame$`Opinião`, ": ", op_tv_data_frame$`Número de alunos`)
+  labels = paste(op_tv_data_frame$`Opinião`, ": ", op_tv_data_frame$`Número de alunos`),
+  main = "Opinião dos alunos a respeito da qualidade da programação de TV"
 )
