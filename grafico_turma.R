@@ -1,6 +1,6 @@
 #imports
 library(ggplot2)
-
+library(gridExtra)
 
 data <- read.csv("dados_estudantes.csv", sep = ';')
 
@@ -8,14 +8,19 @@ data <- read.csv("dados_estudantes.csv", sep = ';')
 #Tabela turmas e gráfico de turmas
 contagem_turmas = table(data$Turma)
 contagem_turmas_table = data.frame(Turma = names(contagem_turmas), Frequencia = as.numeric(contagem_turmas))
-pie(
-  contagem_turmas_table$Frequencia,
-  labels = paste(
-    contagem_turmas_table$Turma, 
-    ": ", 
-    contagem_turmas_table$Frequencia
-  ),
-  main = "Gráfico de distribuição de alunos por turma"
+contagem_turmas_grob = tableGrob(contagem_turmas_table)
+grid.arrange(
+  contagem_turmas_grob,
+  pie(
+    contagem_turmas_table$Frequencia,
+    labels = paste(
+      contagem_turmas_table$Turma, 
+      ": ", 
+      contagem_turmas_table$Frequencia
+    ),
+    main = "Gráfico de distribuição de alunos por turma"
+    ),
+  nrow = 1
 )
 
 
@@ -26,14 +31,20 @@ contagem_sexo_table = data.frame(
   Sexo = names(contagem_sexo),
   Frenquencia = as.integer(contagem_sexo)
 )
-pie(
-  contagem_sexo_table$Frenquencia,
-  labels = paste(
-    contagem_sexo_table$Sexo,
-    ": ",
-    contagem_sexo_table$Frenquencia
-  ),
-  main = "Gráfico de distribuição de alunos por sexo"
+contagem_sexo_grob = tableGrob(contagem_sexo_table)
+grid.arrange(
+  contagem_sexo_grob,
+  ggplot(
+    contagem_sexo_table,
+    aes(
+      x = Sexo,
+      y= Frenquencia
+    )
+  )+
+    geom_bar(stat = "identity"),
+  nrow = 1,
+  ncol = 2,
+  widths = c(1/3, 2/3)
 )
 
 
